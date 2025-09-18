@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Project &mdash; Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison" href="final.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="final.html"><strong>Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#data-processing-and-statistics"><strong>Data Processing and Statistics</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#logistic-regression"><strong>Logistic Regression</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#random-forest"><strong>Random Forest</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#naive-bayes"><strong>Naive Bayes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#comparisons"><strong>Comparisons</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#conclusion"><strong>Conclusion</strong></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Final Project</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="final-project">
+<h1>Final Project<a class="headerlink" href="#final-project" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="final.html"><strong>Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="final.html#participants"><strong>Participants</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#introduction"><strong>Introduction</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#brute-force-attack"><strong>Brute Force Attack</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#distributed-denial-of-service-ddos-attack"><strong>Distributed Denial of Service (DDoS) Attack</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#denial-of-service-dos-attack"><strong>Denial of Service (DoS) Attack</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#data"><strong>Data</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#data-processing-and-statistics"><strong>Data Processing and Statistics</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="final.html#cleaning-process"><strong>Cleaning Process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#class-distributions"><strong>Class Distributions</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#logistic-regression"><strong>Logistic Regression</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="final.html#logistic-regression-class-structure"><strong>Logistic Regression Class Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id1"><strong>Brute Force</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id6"><strong>DDoS</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id15"><strong>DoS</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#random-forest"><strong>Random Forest</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="final.html#random-forest-class-structure"><strong>Random Forest Class Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id24"><strong>Brute Force</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id33"><strong>DDoS</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id42"><strong>DoS</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#naive-bayes"><strong>Naive Bayes</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="final.html#naive-bayes-class-structure"><strong>Naive Bayes Class Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id51"><strong>Brute Force</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id60"><strong>DDoS</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#id69"><strong>DoS</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#comparisons"><strong>Comparisons</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="final.html#feature-importance"><strong>Feature Importance</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="final.html#overall-model-performance"><strong>Overall Model Performance</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html#conclusion"><strong>Conclusion</strong></a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="final.html" class="btn btn-neutral float-right" title="Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kanchan Naik, Spencer Dearman.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

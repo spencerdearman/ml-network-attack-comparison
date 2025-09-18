@@ -1,0 +1,3131 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison &mdash; Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Final Project" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#participants"><strong>Participants</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction"><strong>Introduction</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#brute-force-attack"><strong>Brute Force Attack</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distributed-denial-of-service-ddos-attack"><strong>Distributed Denial of Service (DDoS) Attack</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#denial-of-service-dos-attack"><strong>Denial of Service (DoS) Attack</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data"><strong>Data</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#data-processing-and-statistics"><strong>Data Processing and Statistics</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cleaning-process"><strong>Cleaning Process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#class-distributions"><strong>Class Distributions</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#brute-force"><strong>Brute Force</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ddos"><strong>DDoS</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dos"><strong>DoS</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packet-totals"><strong>Packet Totals</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#logistic-regression"><strong>Logistic Regression</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#logistic-regression-class-structure"><strong>Logistic Regression Class Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1"><strong>Brute Force</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-predictions"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#classification-report"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#confusion-matrix"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#roc-curve"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id6"><strong>DDoS</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id15"><strong>DoS</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id20"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id21"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#random-forest"><strong>Random Forest</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#random-forest-class-structure"><strong>Random Forest Class Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id24"><strong>Brute Force</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id25"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id26"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id27"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id29"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id30"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id32"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id33"><strong>DDoS</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id34"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id35"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id36"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id37"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id38"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id39"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id40"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id41"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id42"><strong>DoS</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id43"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id44"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id45"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id46"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id47"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id48"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id49"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id50"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#naive-bayes"><strong>Naive Bayes</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#naive-bayes-class-structure"><strong>Naive Bayes Class Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id51"><strong>Brute Force</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id52"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id53"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id54"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id55"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id56"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id57"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id58"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id59"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id60"><strong>DDoS</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id61"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id62"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id63"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id64"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id65"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id66"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id67"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id68"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id69"><strong>DoS</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id70"><strong>2017 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id71"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id72"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id73"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id74"><strong>2018 Data + Predictions</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id75"><strong>Classification Report</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id76"><strong>Confusion Matrix</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id77"><strong>ROC Curve</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#comparisons"><strong>Comparisons</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#feature-importance"><strong>Feature Importance</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id78"><strong>Brute Force</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id79"><strong>DDoS</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id80"><strong>DoS</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#overall-model-performance"><strong>Overall Model Performance</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#conclusion"><strong>Conclusion</strong></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><strong>Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</strong></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/final.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="detecting-brute-force-ddos-and-dos-attacks-a-supervised-learning-comparison">
+<h1><strong>Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison</strong><a class="headerlink" href="#detecting-brute-force-ddos-and-dos-attacks-a-supervised-learning-comparison" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<section id="participants">
+<h2><strong>Participants</strong><a class="headerlink" href="#participants" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Username</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Kanchan Naik</p></td>
+<td><p>kanchan</p></td>
+<td><p>Developer, Writer</p></td>
+</tr>
+<tr class="row-odd"><td><p>Spencer Dearman</p></td>
+<td><p>dearmanspencer</p></td>
+<td><p>Developer, Writer</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="introduction">
+<h2><strong>Introduction</strong><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Network attacks have become a big threat in today’s digital landscape, significantly impacting the security and availability of online services. Distributed Denial of Service (DDoS) attacks, Denial of Service (DoS) attacks, and brute force FTP attacks are all examples of the diverse range of threats that organizations face. DDoS attacks overwhelm services by flooding them with traffic from compromised devices, making them inaccessible to legitimate users. In 2016, for example, one of the most extensive instances of a DDoS attack was directed against the Domain Name System provider Dyn, creating a botnet composed of tens of millions of IP addresses. Major services, including Quora, Reddit, Amazon, SoundCloud, and the BBC, were entirely unavailable in North America and much of Europe for the duration of this attack, disrupting critical online activities such as e-commerce and voting.</p>
+<p>Similarly, Denial of Service (DoS) attacks disrupt services by overwhelming them with traffic or exploiting vulnerabilities, but they originate from a single source rather than a distributed network. These attacks can cause significant downtime and resource exhaustion, further emphasizing the need for robust mitigation strategies. Brute force FTP attacks exploit weak passwords to gain unauthorized access to servers, highlighting the importance of strong authentication measures.</p>
+<p>In our project, we will compare the effectiveness of various machine learning models such as Random Forest Trees, Naive Bayes, and Logistic Regression in detecting these different types of attacks. By evaluating how well each algorithm performs in detecting DDoS, DoS, and brute force FTP attacks, we will gain insights into their relative strengths and weaknesses, ultimately providing a comprehensive overview of their effectiveness in securing network infrastructures.</p>
+<p>This research could help organizations understand which machine learning models are most effective in detecting and mitigating various network attacks, improving their ability to secure sensitive data and maintain service availability. Previous research in this area has primarily focused on evaluating machine learning models for attack detection, but such studies are often limited in scope, typically examining attacks from a single dataset.</p>
+</section>
+<section id="brute-force-attack">
+<h2><strong>Brute Force Attack</strong><a class="headerlink" href="#brute-force-attack" title="Link to this heading"></a></h2>
+<p>A brute force network attack is a technique that is used by attackers to gain unauthorized access to a system or network by repeatedly trying different combinations of usernames, passwords, or encryption keys until the correct one is found. It relies on sheer computational power and persistence rather than exploiting system vulnerabilities. This type of attack can be resource-intensive and time-consuming, but it is often effective against systems with weak passwords or poorly configured authentication mechanisms.</p>
+</section>
+<section id="distributed-denial-of-service-ddos-attack">
+<h2><strong>Distributed Denial of Service (DDoS) Attack</strong><a class="headerlink" href="#distributed-denial-of-service-ddos-attack" title="Link to this heading"></a></h2>
+<p>A Distributed Denial of Service (DDoS) attack is an attempt to disrupt the normal functioning of a server, network, or website by overwhelming it with a massive volume of traffic. This type of attack is “distributed” because it involves multiple compromised devices, often part of a botnet, which work together to flood the target with requests. The goal of a DDoS attack is to exhaust the target’s resources, such as bandwidth or server capacity, making it inaccessible to legitimate users. These attacks are usually launched by exploiting vulnerabilities in systems or by taking control of many devices to amplify the scale of the traffic.</p>
+</section>
+<section id="denial-of-service-dos-attack">
+<h2><strong>Denial of Service (DoS) Attack</strong><a class="headerlink" href="#denial-of-service-dos-attack" title="Link to this heading"></a></h2>
+<p>A Denial of Service (DoS) attack is an attempt to make a server, network, or service unavailable to its intended users by overwhelming it with a flood of traffic or sending data that exploits vulnerabilities in the system. Unlike a DDoS attack, a DoS attack is launched from a single source rather than multiple distributed devices. The goal is to exhaust the target’s resources, such as processing power or memory, so it cannot handle legitimate requests. This type of attack disrupts normal operations, causing inconvenience or financial loss to the target.</p>
+</section>
+<section id="data">
+<h2><strong>Data</strong><a class="headerlink" href="#data" title="Link to this heading"></a></h2>
+<p>The Canadian Institute for Cybersecurity Intrusion Detection System (CICIDS) datasets, collected by the University of New Brunswick, serve as a comprehensive resource for intrusion detection. These datasets include both benign traffic and a range of contemporary attacks, including DDoS, DoS, and brute force attacks, collected in packet capture (PCAP) files. To create these datasets, the researchers focused on generating realistic background traffic which resembles human interactions on the Internet for a capturing period of five days. During this period, various attacks were executed at different times. The researchers then aggregated the packet-level data into network flows, calculating a set of features which include both continuous variables (ie. flow duration, byte counts, packet counts, etc.) and categorical variables (source and destination ports, protocol types, etc.). The resulting dataset is both comprehensive and structured, allowing for supervised machine learning models to differentiate network traffic patterns and behavior.</p>
+<p>For this project, we used two research datasets—CCIDS2017 and CCIDS2018—to analyze how machine learning detection systems respond to attacks which evolve over time. These datasets were chosen because they maintain consistency in the data collection methodology, with both relying on packet capture (PCAP) files aggregated into flow-level features. Additionally, both datasets include examples of the three attack types we are studying—DoS, DDoS, and brute force attacks —allowing for a comprehensive comparison of detection performance across different attack scenarios. By using these datasets, we were able to ensure a consistent evaluation framework while focusing on a broad range of network-based attacks.</p>
+</section>
+</section>
+<section id="data-processing-and-statistics">
+<h1><strong>Data Processing and Statistics</strong><a class="headerlink" href="#data-processing-and-statistics" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<section id="cleaning-process">
+<h2><strong>Cleaning Process</strong><a class="headerlink" href="#cleaning-process" title="Link to this heading"></a></h2>
+<p>To clean the data for analysis, we followed a multi-step process to ensure consistency and relevance across both datasets. First and foremost, we removed any rows containing null or empty values, as these would interfere with model training and evaluation. We also filtered out examples that did not correspond to the attack types we were focusing on—DoS, DDoS, and brute force attacks. While both datasets included additional attack types, such as Heartbleed and various web attacks, these were not relevant to our research, so we excluded them.
+Next, we standardized the feature set between the two datasets. This was crucial because our machine learning models required a consistent feature vector. We started by removing features that only appeared in one of the datasets. For example, the ‘Protocol’ column was present in the CCIDS2018 dataset but not in the CCIDS2017 dataset, so we dropped it from the 2018 dataset to ensure uniformity.
+Additionally, we addressed discrepancies in column naming between the two datasets. Many columns in CCIDS2018 used abbreviated names (e.g., ‘Bwd Header Len’) that differed from the more descriptive names in CCIDS2017 (e.g., ‘Bwd Header Length’). To resolve this, we mapped the column names between the two datasets using a predefined dictionary, ensuring that similar features were properly aligned. This allowed us to merge the datasets into a cohesive dataset that could be used for machine learning modeling.</p>
+</section>
+<section id="class-distributions">
+<h2><strong>Class Distributions</strong><a class="headerlink" href="#class-distributions" title="Link to this heading"></a></h2>
+<section id="brute-force">
+<h3><strong>Brute Force</strong><a class="headerlink" href="#brute-force" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_paired_class_distributions</span><span class="p">(</span>
+    <span class="n">brute_force_2017_df</span><span class="p">,</span> <span class="n">brute_force_2018_df</span><span class="p">,</span>
+    <span class="p">[</span><span class="s1">&#39;Benign&#39;</span><span class="p">,</span> <span class="s1">&#39;FTP-BruteForce&#39;</span><span class="p">,</span> <span class="s1">&#39;SSH-Bruteforce&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Brute Force 2017: Distribution of Classes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Brute Force 2018: Distribution of Classes&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d2d367a3f39caf7d136036eb31238e05b02553e5fa1a7263b5c347f3daa6d716.png" src="_images/d2d367a3f39caf7d136036eb31238e05b02553e5fa1a7263b5c347f3daa6d716.png" />
+</div>
+</div>
+<p>These bar plots are showing the distribution of Benign, FTP-BruteForce, and SSH-BruteForce traffic for datasets from 2017 and 2018. In 2017, Benign traffic dominated the dataset, with very few instances of FTP and SSH brute force attacks. By 2018, the distribution becomes more balanced, with a noticeable increase in both FTP-BruteForce and SSH-BruteForce traffic, although Benign traffic still constitutes the majority. This suggests that there could be an increase in brute force attacks in 2018, or they made more of an active effort to collect less benign data.</p>
+</section>
+<section id="ddos">
+<h3><strong>DDoS</strong><a class="headerlink" href="#ddos" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_paired_class_distributions</span><span class="p">(</span>
+    <span class="n">ddos_2017_df</span><span class="p">,</span> <span class="n">ddos_2018_df</span><span class="p">,</span>
+    <span class="p">[</span><span class="s1">&#39;Benign&#39;</span><span class="p">,</span> <span class="s1">&#39;DDoS&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;DDoS 2017: Distribution of Classes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;DDoS 2018: Distribution of Classes&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/10557a4fc05b1be01797a196416b810ae080623d34b13ce81849e0e5d07dde38.png" src="_images/10557a4fc05b1be01797a196416b810ae080623d34b13ce81849e0e5d07dde38.png" />
+</div>
+</div>
+<p>These bar plots are showing the distribution of DDoS and Benign traffic in the 2017 and 2018 datasets. In 2017, there seems to be an imbalance with more Benign traffic compared to DDoS traffic, though the gap isn’t as significant as in some other datasets. By 2018, the imbalance becomes much more pronounced, with Benign traffic far outweighing DDoS traffic. This most likely suggests that either fewer DDoS attacks were recorded in 2018, or the collection process favored capturing more Benign traffic.</p>
+</section>
+<section id="dos">
+<h3><strong>DoS</strong><a class="headerlink" href="#dos" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_paired_class_distributions</span><span class="p">(</span>
+    <span class="n">dos_2017_df</span><span class="p">,</span> <span class="n">dos_2018_df</span><span class="p">,</span>
+    <span class="p">[</span><span class="s1">&#39;Benign&#39;</span><span class="p">,</span> <span class="s1">&#39;DoS&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;DoS 2017: Distribution of Classes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;DoS 2018: Distribution of Classes&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/411a486e5b14749aab89396fa3a41babf376478d465bcf55a849b140bec5c5fa.png" src="_images/411a486e5b14749aab89396fa3a41babf376478d465bcf55a849b140bec5c5fa.png" />
+</div>
+</div>
+<p>These bar plots are showing the distribution of Benign and DoS traffic for datasets from 2017 and 2018. In 2017, there’s a clear imbalance, with much more Benign traffic than DoS traffic. However, in 2018, the trend reverses, with DoS traffic being more frequent than Benign traffic. This change reflects either an increase in DoS attack activity or differences in how the data was collected.</p>
+</section>
+<section id="packet-totals">
+<h3><strong>Packet Totals</strong><a class="headerlink" href="#packet-totals" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_comparative_bar_chart</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">brute_force_2017</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ddos_2017</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dos_2017</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> 
+    <span class="p">[</span><span class="n">brute_force_2018</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ddos_2018</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dos_2018</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> 
+    <span class="p">[</span><span class="s1">&#39;Brute Force&#39;</span><span class="p">,</span> <span class="s1">&#39;DDoS&#39;</span><span class="p">,</span> <span class="s1">&#39;DoS&#39;</span><span class="p">],</span> 
+    <span class="s1">&#39;Total Traffic per Attack Type: 2017 vs. 2018&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9c91ea4ec4f78012832018b3080bbdc6ff45b5e723b5b433bf40f7339348e664.png" src="_images/9c91ea4ec4f78012832018b3080bbdc6ff45b5e723b5b433bf40f7339348e664.png" />
+</div>
+</div>
+<p>This bar plot is comparing the total traffic for Brute Force, DDoS, and DoS attacks in 2017 and 2018. For Brute Force attacks, there’s a noticeable increase in traffic in 2018 compared to 2017, reflecting either a rise in attack activity or enhanced data collection. In contrast, DDoS traffic shows a dramatic increase from 2017 to 2018, suggesting either a surge in attack frequency or improved identification and recording of these events. DoS traffic remains relatively consistent across the two years, with only a minor increase in 2018.</p>
+</section>
+</section>
+</section>
+<section id="logistic-regression">
+<h1><strong>Logistic Regression</strong><a class="headerlink" href="#logistic-regression" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<p>Logistic regression is a statistical and machine learning algorithm used for binary and multi-class classification problems. It predicts the probability of an event belonging to a particular class by applying the logistic (sigmoid) function to a linear combination of input features. The sigmoid function ensures the output is a value between 0 and 1, which can be interpreted as a probability. Logistic regression is particularly effective for understanding the influence of independent variables on a binary dependent variable, making it a popular choice for tasks where the output involves two or more discrete classes. Its interpretability, simplicity, and ability to handle large datasets make it a practical model for identifying patterns in data associated with network attacks.</p>
+<p>In the context of brute force, DDoS, and DoS attacks, logistic regression is especially useful due to its capacity to differentiate between normal and malicious network traffic based on key features like traffic volume, frequency of connection attempts, and packet characteristics. For brute force attacks, logistic regression can identify suspicious login attempts by analyzing patterns such as repeated access failures or unusually rapid login attempts. In the case of DDoS and DoS attacks, it can classify traffic based on abnormal volumes or irregular request patterns. Its efficiency in training and prediction makes it ideal for real-time detection systems, where quick decisions are crucial to mitigate the impact of these attacks. Moreover, the model’s ability to provide probabilistic outputs allows security teams to set thresholds for alerts and prioritize responses to the most severe threats.</p>
+<section id="logistic-regression-class-structure">
+<h2><strong>Logistic Regression Class Structure</strong><a class="headerlink" href="#logistic-regression-class-structure" title="Link to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LogisticRegressionWorkflow</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">class_names</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the workflow with data and class names.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        X : DataFrame : The feature data.</span>
+<span class="sd">        y : Series : The target labels.</span>
+<span class="sd">        class_names : list : List of class names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="o">=</span> <span class="n">class_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_new</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob_new</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_df</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Splits the data, trains the model using GridSearchCV, and stores the best model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+        <span class="p">)</span>
+
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+            <span class="p">(</span><span class="s1">&#39;logreg&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span>
+        <span class="p">])</span>
+
+        <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;logreg__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+            <span class="s1">&#39;logreg__solver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="s1">&#39;liblinear&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates predictions for the test set and stores them as attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The model is not trained. Run the train() method first.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the classification report and stores it as an attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Predictions have not been made. Ensure the model is trained and predictions are generated before evaluation.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_df</span> <span class="o">=</span> <span class="n">generate_classification_report</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_feature_importance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the feature importance based on the coefficients of the logistic regression model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coefficients</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;logreg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">feature_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span>
+        <span class="n">importance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">importance</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">importance</span><span class="p">)),</span> <span class="n">importance</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">],</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">importance</span><span class="p">)),</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sorted_idx</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Absolute Coefficient Value&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Feature Importances Based on Logistic Regression Coefficients&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the confusion matrix for the test data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_roc_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the ROC curve for the test data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">plot_roc_curve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict_on_new_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predicts the labels for new data and evaluates performance.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        X_new : DataFrame : The new feature data (e.g., 2018 data).</span>
+<span class="sd">        y_new : Series : The new target labels (e.g., 2018 labels).</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        report_df : DataFrame : The classification report for the new data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+        <span class="n">report_df</span> <span class="o">=</span> <span class="n">generate_classification_report</span><span class="p">(</span><span class="n">y_new</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_new</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h2><strong>Brute Force</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="data-predictions">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#data-predictions" title="Link to this heading"></a></h3>
+<section id="classification-report">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#classification-report" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.992599</td>
+      <td>0.999119</td>
+      <td>0.995848</td>
+      <td>86310.000000</td>
+    </tr>
+    <tr>
+      <th>FTP-BruteForce</th>
+      <td>0.967584</td>
+      <td>0.996849</td>
+      <td>0.981999</td>
+      <td>1587.000000</td>
+    </tr>
+    <tr>
+      <th>SSH-Bruteforce</th>
+      <td>0.956240</td>
+      <td>0.478896</td>
+      <td>0.638183</td>
+      <td>1232.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.991888</td>
+      <td>0.991888</td>
+      <td>0.991888</td>
+      <td>0.991888</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.972141</td>
+      <td>0.824955</td>
+      <td>0.872010</td>
+      <td>89129.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.991651</td>
+      <td>0.991888</td>
+      <td>0.990658</td>
+      <td>89129.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="confusion-matrix">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#confusion-matrix" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bd20715121daecdaea2a0784e81f2444feb2a8d3f097ce6b03bdab39604a2490.png" src="_images/bd20715121daecdaea2a0784e81f2444feb2a8d3f097ce6b03bdab39604a2490.png" />
+</div>
+</div>
+</section>
+<section id="roc-curve">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#roc-curve" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ec9ac1a093303b61c637f17523f821e599a7844dc6058ca48850a25b8ada34d1.png" src="_images/ec9ac1a093303b61c637f17523f821e599a7844dc6058ca48850a25b8ada34d1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id2">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id3">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.999992</td>
+      <td>0.999857</td>
+      <td>0.999925</td>
+      <td>132745.000000</td>
+    </tr>
+    <tr>
+      <th>FTP-BruteForce</th>
+      <td>0.999330</td>
+      <td>1.000000</td>
+      <td>0.999665</td>
+      <td>38753.000000</td>
+    </tr>
+    <tr>
+      <th>SSH-Bruteforce</th>
+      <td>0.999920</td>
+      <td>0.999706</td>
+      <td>0.999813</td>
+      <td>37453.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999856</td>
+      <td>0.999856</td>
+      <td>0.999856</td>
+      <td>0.999856</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999747</td>
+      <td>0.999854</td>
+      <td>0.999801</td>
+      <td>208951.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999857</td>
+      <td>0.999856</td>
+      <td>0.999856</td>
+      <td>208951.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id4">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e0d7d061fbf332ee53355a02c3ddef43a89b12b181caefcbd9c2db5c635703ca.png" src="_images/e0d7d061fbf332ee53355a02c3ddef43a89b12b181caefcbd9c2db5c635703ca.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d7f38497717ac9e1074362461febe12629aa6222b283cc3bab7adb26d3f47748.png" src="_images/d7f38497717ac9e1074362461febe12629aa6222b283cc3bab7adb26d3f47748.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id6">
+<h2><strong>DDoS</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<section id="id7">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id8">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.998353</td>
+      <td>0.999022</td>
+      <td>0.998687</td>
+      <td>19419.00000</td>
+    </tr>
+    <tr>
+      <th>DDoS</th>
+      <td>0.999261</td>
+      <td>0.998756</td>
+      <td>0.999008</td>
+      <td>25724.00000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.998870</td>
+      <td>0.998870</td>
+      <td>0.998870</td>
+      <td>0.99887</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.998807</td>
+      <td>0.998889</td>
+      <td>0.998848</td>
+      <td>45143.00000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.998871</td>
+      <td>0.998870</td>
+      <td>0.998870</td>
+      <td>45143.00000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id9">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/01c88e8f5cb97881ef8f199556f42db87ddbeeddfb39b8260146c6ccb127bf89.png" src="_images/01c88e8f5cb97881ef8f199556f42db87ddbeeddfb39b8260146c6ccb127bf89.png" />
+</div>
+</div>
+</section>
+<section id="id10">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ae5dc8819b953e3dabb2d4bd410acc3b01c05de8fc4a1efd8416c52f0f3c1f89.png" src="_images/ae5dc8819b953e3dabb2d4bd410acc3b01c05de8fc4a1efd8416c52f0f3c1f89.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id12">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>1.000000</td>
+      <td>0.999986</td>
+      <td>0.999993</td>
+      <td>72083.000000</td>
+    </tr>
+    <tr>
+      <th>DDoS</th>
+      <td>0.999993</td>
+      <td>1.000000</td>
+      <td>0.999996</td>
+      <td>137632.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999996</td>
+      <td>0.999993</td>
+      <td>0.999995</td>
+      <td>209715.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>209715.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id13">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e00b81ecec99d5e7734c79bd684de9950f86fef90497d6799c78ac8f581e75b5.png" src="_images/e00b81ecec99d5e7734c79bd684de9950f86fef90497d6799c78ac8f581e75b5.png" />
+</div>
+</div>
+</section>
+<section id="id14">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id14" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b42867d4cda8bfeb31d66bdd87a882d19c7e40cd4549ad4e3faee1cd3392a8ec.png" src="_images/b42867d4cda8bfeb31d66bdd87a882d19c7e40cd4549ad4e3faee1cd3392a8ec.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id15">
+<h2><strong>DoS</strong><a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<section id="id16">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<section id="id17">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id17" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.992768</td>
+      <td>0.994527</td>
+      <td>0.993647</td>
+      <td>88068.0000</td>
+    </tr>
+    <tr>
+      <th>DoS</th>
+      <td>0.990371</td>
+      <td>0.987294</td>
+      <td>0.988830</td>
+      <td>50211.0000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.991900</td>
+      <td>0.991900</td>
+      <td>0.991900</td>
+      <td>0.9919</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.991570</td>
+      <td>0.990910</td>
+      <td>0.991238</td>
+      <td>138279.0000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.991898</td>
+      <td>0.991900</td>
+      <td>0.991898</td>
+      <td>138279.0000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id18">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id18" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2b12f24336e949fe197d1f4d1127a41d48f22b1059ad6d773de916a7d39973e6.png" src="_images/2b12f24336e949fe197d1f4d1127a41d48f22b1059ad6d773de916a7d39973e6.png" />
+</div>
+</div>
+</section>
+<section id="id19">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id19" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2fe86259ca8a80ddf09626075342cd2193e5871ffd54c950e7c241fd3db260c6.png" src="_images/2fe86259ca8a80ddf09626075342cd2193e5871ffd54c950e7c241fd3db260c6.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id20">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<section id="id21">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id21" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>1.000000</td>
+      <td>0.999989</td>
+      <td>0.999994</td>
+      <td>89389.000000</td>
+    </tr>
+    <tr>
+      <th>DoS</th>
+      <td>0.999992</td>
+      <td>1.000000</td>
+      <td>0.999996</td>
+      <td>120326.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999996</td>
+      <td>0.999994</td>
+      <td>0.999995</td>
+      <td>209715.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>209715.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id22">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id22" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/08e40fdfdc118a974eddbbb0c0564c884d2c65faff3630c28a81ac583ea9526f.png" src="_images/08e40fdfdc118a974eddbbb0c0564c884d2c65faff3630c28a81ac583ea9526f.png" />
+</div>
+</div>
+</section>
+<section id="id23">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id23" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c1d6fab6701b3532111b1d906f7f5a60976ad63b56dfcc3ecec5e82666b00aa8.png" src="_images/c1d6fab6701b3532111b1d906f7f5a60976ad63b56dfcc3ecec5e82666b00aa8.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="random-forest">
+<h1><strong>Random Forest</strong><a class="headerlink" href="#random-forest" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<p>Random Forest is an ensemble machine learning algorithm that builds multiple decision trees during training and combines their outputs to improve classification or regression performance. Each tree in the forest is constructed using a random subset of the data and features, which introduces diversity and helps reduce overfitting. The final prediction is typically determined by averaging the outputs (in regression tasks) or by majority voting (in classification tasks). Random Forest is robust, can handle both categorical and numerical data, and is less sensitive to noise or outliers compared to individual decision trees. Its ability to rank feature importance also makes it valuable for identifying key variables contributing to a classification.</p>
+<p>For detecting brute force, DDoS, and DoS attacks, Random Forest is particularly useful due to its flexibility and capability to model complex relationships between input features. In the case of brute force attacks, Random Forest can analyze intricate patterns such as repeated login attempts across multiple accounts or IP addresses, even if the data contains noise. For DDoS and DoS attacks, it excels at identifying anomalies in high-dimensional datasets, such as spikes in traffic volume, unusual packet sizes, or irregular request timings. Since it evaluates multiple decision trees, Random Forest provides a more reliable and accurate classification of network traffic, reducing the likelihood of false positives or negatives.</p>
+<section id="random-forest-class-structure">
+<h2><strong>Random Forest Class Structure</strong><a class="headerlink" href="#random-forest-class-structure" title="Link to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RandomForestWorkflow</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to manage the workflow of training, evaluating, and predicting with a Random Forest model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">class_names</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the workflow with data and class names.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        X : DataFrame : The feature data.</span>
+<span class="sd">        y : Series : The target labels.</span>
+<span class="sd">        class_names : list : List of class names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="o">=</span> <span class="n">class_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_df</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the Random Forest model with hyperparameter tuning.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tune_hyperparameters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate the model on the test set and generate performance metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model has not been trained. Call the train() method first.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_classification_report</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict_on_new_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict on new data using the trained model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        X_new : DataFrame : New feature data.</span>
+<span class="sd">        y_new : Series : New target labels.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        DataFrame : Classification report for the new data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model has not been trained. Call the train() method first.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_new_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_new_pred_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_classification_report</span><span class="p">(</span><span class="n">y_new</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_new_pred</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot a confusion matrix.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        y_true : Series : True labels.</span>
+<span class="sd">        y_pred : Series : Predicted labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+        <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True label&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted label&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">plot_roc_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_prob</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot ROC curve and AUC for binary or multiclass classification.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        y_true : array-like : True labels.</span>
+<span class="sd">        y_pred_prob : ndarray : Predicted probabilities for each class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n_classes</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_prob</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;ROC curve (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
+                <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_true</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="n">y_pred_prob</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+                <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Class </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;navy&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;False Positive Rate&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;True Positive Rate&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Receiver Operating Characteristic (ROC) Curve&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_tune_hyperparameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tune hyperparameters using GridSearchCV.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        Best estimator from the GridSearchCV.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+            <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+            <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+    <span class="k">def</span> <span class="nf">_generate_classification_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a classification report.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        y_true : Series : True labels.</span>
+<span class="sd">        y_pred : Series : Predicted labels.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        DataFrame : Classification report as a DataFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">report</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">collect_metrics</span><span class="p">(</span><span class="n">report_df</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">):</span>
+<span class="w">      </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Collect key metrics from the classification report DataFrame.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">try</span><span class="p">:</span>
+          <span class="n">accuracy</span> <span class="o">=</span> <span class="n">report_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;f1-score&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Accuracy&#39;</span> <span class="ow">in</span> <span class="n">report_df</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="kc">None</span>
+          <span class="n">macro_f1</span> <span class="o">=</span> <span class="n">report_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Macro avg&#39;</span><span class="p">,</span> <span class="s1">&#39;f1-score&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Macro avg&#39;</span> <span class="ow">in</span> <span class="n">report_df</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="kc">None</span>
+          <span class="n">weighted_f1</span> <span class="o">=</span> <span class="n">report_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Weighted avg&#39;</span><span class="p">,</span> <span class="s1">&#39;f1-score&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Weighted avg&#39;</span> <span class="ow">in</span> <span class="n">report_df</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="kc">None</span>
+
+          <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span>
+              <span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="n">model_type</span><span class="p">,</span>
+              <span class="s1">&#39;Algorithm&#39;</span><span class="p">:</span> <span class="n">algorithm</span><span class="p">,</span>
+              <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span>
+              <span class="s1">&#39;Macro F1&#39;</span><span class="p">:</span> <span class="n">macro_f1</span><span class="p">,</span>
+              <span class="s1">&#39;Weighted F1&#39;</span><span class="p">:</span> <span class="n">weighted_f1</span>
+          <span class="p">}])</span>
+      <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KeyError in collect_metrics: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available keys:&quot;</span><span class="p">,</span> <span class="n">report_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+          <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span>
+              <span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="n">model_type</span><span class="p">,</span>
+              <span class="s1">&#39;Algorithm&#39;</span><span class="p">:</span> <span class="n">algorithm</span><span class="p">,</span>
+              <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="s1">&#39;Macro F1&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="s1">&#39;Weighted F1&#39;</span><span class="p">:</span> <span class="kc">None</span>
+          <span class="p">}])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id24">
+<h2><strong>Brute Force</strong><a class="headerlink" href="#id24" title="Link to this heading"></a></h2>
+<section id="id25">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<section id="id26">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id26" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.999942</td>
+      <td>1.000000</td>
+      <td>0.999971</td>
+      <td>86310.000000</td>
+    </tr>
+    <tr>
+      <th>FTP-BruteForce</th>
+      <td>1.000000</td>
+      <td>0.998740</td>
+      <td>0.999369</td>
+      <td>1587.000000</td>
+    </tr>
+    <tr>
+      <th>SSH-Bruteforce</th>
+      <td>1.000000</td>
+      <td>0.997565</td>
+      <td>0.998781</td>
+      <td>1232.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999944</td>
+      <td>0.999944</td>
+      <td>0.999944</td>
+      <td>0.999944</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999981</td>
+      <td>0.998768</td>
+      <td>0.999374</td>
+      <td>89129.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999944</td>
+      <td>0.999944</td>
+      <td>0.999944</td>
+      <td>89129.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id27">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id27" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">y_pred</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a0e5f0cf0a5964d194e3c6e185a90bf67b793b2a193f563a3145c09f6250abee.png" src="_images/a0e5f0cf0a5964d194e3c6e185a90bf67b793b2a193f563a3145c09f6250abee.png" />
+</div>
+</div>
+</section>
+<section id="id28">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id28" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span>
+    <span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">brute_force_workflow_2017</span><span class="o">.</span><span class="n">y_pred_prob</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/707180fe8b64d41064a216a802e07bbeb34ca1770535abf7c0658302e01cfc10.png" src="_images/707180fe8b64d41064a216a802e07bbeb34ca1770535abf7c0658302e01cfc10.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id29">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<section id="id30">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>132745.000000</td>
+    </tr>
+    <tr>
+      <th>FTP-BruteForce</th>
+      <td>0.999742</td>
+      <td>1.000000</td>
+      <td>0.999871</td>
+      <td>38753.000000</td>
+    </tr>
+    <tr>
+      <th>SSH-Bruteforce</th>
+      <td>1.000000</td>
+      <td>0.999733</td>
+      <td>0.999866</td>
+      <td>37453.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999952</td>
+      <td>0.999952</td>
+      <td>0.999952</td>
+      <td>0.999952</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999914</td>
+      <td>0.999911</td>
+      <td>0.999912</td>
+      <td>208951.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999952</td>
+      <td>0.999952</td>
+      <td>0.999952</td>
+      <td>208951.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id31">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">y_pred</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/43c911a57757bb4d51920af0f4dfe2d2931373582917d17d71bb39ba8f37a42c.png" src="_images/43c911a57757bb4d51920af0f4dfe2d2931373582917d17d71bb39ba8f37a42c.png" />
+</div>
+</div>
+</section>
+<section id="id32">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span>
+    <span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">brute_force_workflow_2018</span><span class="o">.</span><span class="n">y_pred_prob</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ac749c30d10f2a26461fbc1ee53f769e87be5205af5a7912f5e689fbd4c7107f.png" src="_images/ac749c30d10f2a26461fbc1ee53f769e87be5205af5a7912f5e689fbd4c7107f.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id33">
+<h2><strong>DDoS</strong><a class="headerlink" href="#id33" title="Link to this heading"></a></h2>
+<section id="id34">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<section id="id35">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.999794</td>
+      <td>1.000000</td>
+      <td>0.999897</td>
+      <td>19419.000000</td>
+    </tr>
+    <tr>
+      <th>DDoS</th>
+      <td>1.000000</td>
+      <td>0.999845</td>
+      <td>0.999922</td>
+      <td>25724.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999911</td>
+      <td>0.999911</td>
+      <td>0.999911</td>
+      <td>0.999911</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999897</td>
+      <td>0.999922</td>
+      <td>0.999910</td>
+      <td>45143.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999911</td>
+      <td>0.999911</td>
+      <td>0.999911</td>
+      <td>45143.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id36">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d6b101a5c73734d04b9b434dbecf127d525066f895e78a4fa2986aac4f50a7ed.png" src="_images/d6b101a5c73734d04b9b434dbecf127d525066f895e78a4fa2986aac4f50a7ed.png" />
+</div>
+</div>
+</section>
+<section id="id37">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ddos_workflow_2017</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4754e6923870c7e879d046236a23be47febb5957da7689ef564a9988662a7f37.png" src="_images/4754e6923870c7e879d046236a23be47febb5957da7689ef564a9988662a7f37.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id38">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<section id="id39">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>72083.0</td>
+    </tr>
+    <tr>
+      <th>DDoS</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>137632.0</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>209715.0</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>209715.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id40">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1d00df9effc574b11fa76e4ff9e46618ba0214d3517238d49de726876bc3d779.png" src="_images/1d00df9effc574b11fa76e4ff9e46618ba0214d3517238d49de726876bc3d779.png" />
+</div>
+</div>
+</section>
+<section id="id41">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ddos_workflow_2018</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d2882dde3e39d9de176a0987a11090eae3d6717034a6c81030c95dd7c06c7081.png" src="_images/d2882dde3e39d9de176a0987a11090eae3d6717034a6c81030c95dd7c06c7081.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id42">
+<h2><strong>DoS</strong><a class="headerlink" href="#id42" title="Link to this heading"></a></h2>
+<section id="id43">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
+<section id="id44">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id44" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.999625</td>
+      <td>0.999637</td>
+      <td>0.999631</td>
+      <td>88068.00000</td>
+    </tr>
+    <tr>
+      <th>DoS</th>
+      <td>0.999363</td>
+      <td>0.999343</td>
+      <td>0.999353</td>
+      <td>50211.00000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.99953</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999494</td>
+      <td>0.999490</td>
+      <td>0.999492</td>
+      <td>138279.00000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>138279.00000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id45">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id45" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/874177031840f2cfe8583646c427aa8f1e51198bb7031e585501f14f254fb93d.png" src="_images/874177031840f2cfe8583646c427aa8f1e51198bb7031e585501f14f254fb93d.png" />
+</div>
+</div>
+</section>
+<section id="id46">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id46" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f02748e452c6e4343e7976dd8dbb1e8c8b3370985f9082ca769c253fcf6e5513.png" src="_images/f02748e452c6e4343e7976dd8dbb1e8c8b3370985f9082ca769c253fcf6e5513.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id47">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id47" title="Link to this heading"></a></h3>
+<section id="id48">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id48" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.999625</td>
+      <td>0.999637</td>
+      <td>0.999631</td>
+      <td>88068.00000</td>
+    </tr>
+    <tr>
+      <th>DoS</th>
+      <td>0.999363</td>
+      <td>0.999343</td>
+      <td>0.999353</td>
+      <td>50211.00000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.99953</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999494</td>
+      <td>0.999490</td>
+      <td>0.999492</td>
+      <td>138279.00000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>138279.00000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id49">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id49" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">dos_workflow_2018</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">dos_workflow_2018</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1e333039fbc1399e0ad938b0da06e35562158e2df598e4a3c249f3b0d6cdd176.png" src="_images/1e333039fbc1399e0ad938b0da06e35562158e2df598e4a3c249f3b0d6cdd176.png" />
+</div>
+</div>
+</section>
+<section id="id50">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id50" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">dos_workflow_2018</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">dos_workflow_2018</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d2882dde3e39d9de176a0987a11090eae3d6717034a6c81030c95dd7c06c7081.png" src="_images/d2882dde3e39d9de176a0987a11090eae3d6717034a6c81030c95dd7c06c7081.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="naive-bayes">
+<h1><strong>Naive Bayes</strong><a class="headerlink" href="#naive-bayes" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<p>Naive Bayes is a probabilistic machine learning algorithm based on Bayes’ Theorem, which calculates the likelihood of an event given prior knowledge of conditions related to the event. It is called “naive” because it assumes that all input features are independent of each other, an assumption that simplifies calculations but may not always hold true in real-world datasets. Despite this simplification, Naive Bayes is efficient, interpretable, and effective for many classification problems, especially when dealing with large datasets and categorical features. It is well-suited for tasks where speed and simplicity are critical.</p>
+<p>In the context of detecting brute force, DDoS, and DoS attacks, Naive Bayes is particularly valuable for its ability to classify network traffic based on probabilistic patterns in the data. For brute force attacks, it can leverage features like the frequency of failed login attempts or unusual access patterns to assign probabilities to whether the behavior is normal or malicious. In the case of DDoS and DoS attacks, Naive Bayes can identify anomalies in network traffic by analyzing features such as traffic volume, packet sizes, and request intervals. Its probabilistic framework makes it adaptable to imbalanced datasets, where malicious traffic might be a small fraction of overall activity.</p>
+<section id="naive-bayes-class-structure">
+<h2><strong>Naive Bayes Class Structure</strong><a class="headerlink" href="#naive-bayes-class-structure" title="Link to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NaiveBayesWorkflow</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to manage the workflow of training, evaluating, and predicting with a Naive Bayes model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">class_names</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the workflow with data and class names.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        X : DataFrame : The feature data.</span>
+<span class="sd">        y : Series : The target labels.</span>
+<span class="sd">        class_names : list : List of class names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="o">=</span> <span class="n">class_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_df</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Splits the data, trains the Naive Bayes model using GridSearchCV, and stores the best model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+        <span class="p">)</span>
+        <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;var_smoothing&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)}</span>
+        <span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">GaussianNB</span><span class="p">(),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates predictions for the test set and stores them as attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The model is not trained. Run the train() method first.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the classification report and stores it as an attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Predictions have not been made. Ensure the model is trained and predictions are generated before evaluation.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_classification_report</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the confusion matrix for the test data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+        <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True label&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted label&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">plot_roc_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the ROC curve for the test data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">roc_auc</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{},</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">):</span>
+            <span class="n">fpr</span><span class="p">[</span><span class="n">class_name</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">class_name</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+            <span class="n">roc_auc</span><span class="p">[</span><span class="n">class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">[</span><span class="n">class_name</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">class_name</span><span class="p">])</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">[</span><span class="n">class_name</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">class_name</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="p">[</span><span class="n">class_name</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Receiver Operating Characteristic (ROC) Curve&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">predict_on_new_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predicts the labels for new data and evaluates performance.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        X_new : DataFrame : The new feature data.</span>
+<span class="sd">        y_new : Series : The new target labels.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        DataFrame : The classification report for the new data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The model is not trained. Run the train() method first.&quot;</span><span class="p">)</span>
+
+        <span class="n">y_pred_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+        <span class="n">y_pred_prob_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_new</span><span class="p">,</span> <span class="n">y_pred_new</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix for New Data:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_classification_report</span><span class="p">(</span><span class="n">y_new</span><span class="p">,</span> <span class="n">y_pred_new</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_generate_classification_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a classification report.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        y_true : Series : True labels.</span>
+<span class="sd">        y_pred : Series : Predicted labels.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        DataFrame : The classification report as a DataFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">report</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id51">
+<h2><strong>Brute Force</strong><a class="headerlink" href="#id51" title="Link to this heading"></a></h2>
+<section id="id52">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id52" title="Link to this heading"></a></h3>
+<section id="id53">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id53" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.968372</td>
+      <td>1.000000</td>
+      <td>0.983932</td>
+      <td>86310.000000</td>
+    </tr>
+    <tr>
+      <th>FTP-BruteForce</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1587.000000</td>
+    </tr>
+    <tr>
+      <th>SSH-Bruteforce</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1232.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.968372</td>
+      <td>0.968372</td>
+      <td>0.968372</td>
+      <td>0.968372</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.322791</td>
+      <td>0.333333</td>
+      <td>0.327977</td>
+      <td>89129.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.937744</td>
+      <td>0.968372</td>
+      <td>0.952812</td>
+      <td>89129.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id54">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id54" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/af0910de9a53116e7b8536ef530451fa7ff37c933c8302ed425c623eb52e63b7.png" src="_images/af0910de9a53116e7b8536ef530451fa7ff37c933c8302ed425c623eb52e63b7.png" />
+</div>
+</div>
+</section>
+<section id="id55">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id55" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/de86934c1e0f120b851b9095333e53c0b25cc76995722c7b8f005601491249aa.png" src="_images/de86934c1e0f120b851b9095333e53c0b25cc76995722c7b8f005601491249aa.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id56">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id56" title="Link to this heading"></a></h3>
+<section id="id57">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id57" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>1.000000</td>
+      <td>0.284199</td>
+      <td>0.442609</td>
+      <td>132745.000000</td>
+    </tr>
+    <tr>
+      <th>FTP-BruteForce</th>
+      <td>0.961249</td>
+      <td>0.871184</td>
+      <td>0.914003</td>
+      <td>38753.000000</td>
+    </tr>
+    <tr>
+      <th>SSH-Bruteforce</th>
+      <td>0.271405</td>
+      <td>0.986276</td>
+      <td>0.425672</td>
+      <td>37453.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.518906</td>
+      <td>0.518906</td>
+      <td>0.518906</td>
+      <td>0.518906</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.744218</td>
+      <td>0.713886</td>
+      <td>0.594095</td>
+      <td>208951.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.862218</td>
+      <td>0.518906</td>
+      <td>0.527000</td>
+      <td>208951.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id58">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id58" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6c13e13adb2d13e07a8f52252fe954cfa0eaceee2c463a471f2d339dc8eb039d.png" src="_images/6c13e13adb2d13e07a8f52252fe954cfa0eaceee2c463a471f2d339dc8eb039d.png" />
+</div>
+</div>
+</section>
+<section id="id59">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id59" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/73015b732437f860373ff2c5c394a7a26a8cb9ae7b9954df83748e3d748476dc.png" src="_images/73015b732437f860373ff2c5c394a7a26a8cb9ae7b9954df83748e3d748476dc.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id60">
+<h2><strong>DDoS</strong><a class="headerlink" href="#id60" title="Link to this heading"></a></h2>
+<section id="id61">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id61" title="Link to this heading"></a></h3>
+<section id="id62">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id62" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.997138</td>
+      <td>0.556105</td>
+      <td>0.714007</td>
+      <td>19419.000000</td>
+    </tr>
+    <tr>
+      <th>DDoS</th>
+      <td>0.748783</td>
+      <td>0.998795</td>
+      <td>0.855906</td>
+      <td>25724.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.808365</td>
+      <td>0.808365</td>
+      <td>0.808365</td>
+      <td>0.808365</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.872960</td>
+      <td>0.777450</td>
+      <td>0.784956</td>
+      <td>45143.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.855617</td>
+      <td>0.808365</td>
+      <td>0.794866</td>
+      <td>45143.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id63">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id63" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cb06454a4542bfe60318c5971924940de83c8483764a26c0d1167aca8c31b3e3.png" src="_images/cb06454a4542bfe60318c5971924940de83c8483764a26c0d1167aca8c31b3e3.png" />
+</div>
+</div>
+</section>
+<section id="id64">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id64" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/17ebf829e9d474076111e2637bed5e4917ded0bdaf2ab80d3de33b5d0567fb8a.png" src="_images/17ebf829e9d474076111e2637bed5e4917ded0bdaf2ab80d3de33b5d0567fb8a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id65">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id65" title="Link to this heading"></a></h3>
+<section id="id66">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id66" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>1.000000</td>
+      <td>0.999931</td>
+      <td>0.999965</td>
+      <td>72083.000000</td>
+    </tr>
+    <tr>
+      <th>DDoS</th>
+      <td>0.999964</td>
+      <td>1.000000</td>
+      <td>0.999982</td>
+      <td>137632.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.999976</td>
+      <td>0.999976</td>
+      <td>0.999976</td>
+      <td>0.999976</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.999982</td>
+      <td>0.999965</td>
+      <td>0.999974</td>
+      <td>209715.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999976</td>
+      <td>0.999976</td>
+      <td>0.999976</td>
+      <td>209715.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id67">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id67" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5b1b782d5468c93ede699a1c56b9af5fdb27617b9446e01388f9373534ff877c.png" src="_images/5b1b782d5468c93ede699a1c56b9af5fdb27617b9446e01388f9373534ff877c.png" />
+</div>
+</div>
+</section>
+<section id="id68">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id68" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8aad0db711ff91dec2aa85d9ccc4250fb434d427d593499144261dcb830b8e73.png" src="_images/8aad0db711ff91dec2aa85d9ccc4250fb434d427d593499144261dcb830b8e73.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id69">
+<h2><strong>DoS</strong><a class="headerlink" href="#id69" title="Link to this heading"></a></h2>
+<section id="id70">
+<h3><strong>2017 Data + Predictions</strong><a class="headerlink" href="#id70" title="Link to this heading"></a></h3>
+<section id="id71">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id71" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.845187</td>
+      <td>0.940092</td>
+      <td>0.890117</td>
+      <td>88068.000000</td>
+    </tr>
+    <tr>
+      <th>DoS</th>
+      <td>0.869153</td>
+      <td>0.697975</td>
+      <td>0.774215</td>
+      <td>50211.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.852176</td>
+      <td>0.852176</td>
+      <td>0.852176</td>
+      <td>0.852176</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.857170</td>
+      <td>0.819033</td>
+      <td>0.832166</td>
+      <td>138279.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.853890</td>
+      <td>0.852176</td>
+      <td>0.848031</td>
+      <td>138279.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id72">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id72" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/586b462e5dbd418f78ee23780ba73ddd81d5e650b78e669eecf384019a3ed6c4.png" src="_images/586b462e5dbd418f78ee23780ba73ddd81d5e650b78e669eecf384019a3ed6c4.png" />
+</div>
+</div>
+</section>
+<section id="id73">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id73" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2017</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7dd782c8cfd2025a8ce0e07bb5ef55a4ed9c558da5237213d893a0993ecb2ebb.png" src="_images/7dd782c8cfd2025a8ce0e07bb5ef55a4ed9c558da5237213d893a0993ecb2ebb.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id74">
+<h3><strong>2018 Data + Predictions</strong><a class="headerlink" href="#id74" title="Link to this heading"></a></h3>
+<section id="id75">
+<h4><strong>Classification Report</strong><a class="headerlink" href="#id75" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">report_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Benign</th>
+      <td>0.996054</td>
+      <td>0.999676</td>
+      <td>0.997862</td>
+      <td>89389.000000</td>
+    </tr>
+    <tr>
+      <th>DoS</th>
+      <td>0.999758</td>
+      <td>0.997058</td>
+      <td>0.998406</td>
+      <td>120326.000000</td>
+    </tr>
+    <tr>
+      <th>Accuracy</th>
+      <td>0.998174</td>
+      <td>0.998174</td>
+      <td>0.998174</td>
+      <td>0.998174</td>
+    </tr>
+    <tr>
+      <th>Macro avg</th>
+      <td>0.997906</td>
+      <td>0.998367</td>
+      <td>0.998134</td>
+      <td>209715.000000</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.998179</td>
+      <td>0.998174</td>
+      <td>0.998174</td>
+      <td>209715.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id76">
+<h4><strong>Confusion Matrix</strong><a class="headerlink" href="#id76" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3d73260af4c979e5ff2b60dcf5bf89b7fafd8b99d259e0ca5a64bc24250cfbb5.png" src="_images/3d73260af4c979e5ff2b60dcf5bf89b7fafd8b99d259e0ca5a64bc24250cfbb5.png" />
+</div>
+</div>
+</section>
+<section id="id77">
+<h4><strong>ROC Curve</strong><a class="headerlink" href="#id77" title="Link to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workflow_2018</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0c6fd1168ad3d4fe4d6d76de47868c74d4b3d95911f0ecab7e7484ed38c3dde4.png" src="_images/0c6fd1168ad3d4fe4d6d76de47868c74d4b3d95911f0ecab7e7484ed38c3dde4.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="comparisons">
+<h1><strong>Comparisons</strong><a class="headerlink" href="#comparisons" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<section id="feature-importance">
+<h2><strong>Feature Importance</strong><a class="headerlink" href="#feature-importance" title="Link to this heading"></a></h2>
+<p>For each model, we generated a graph of feature importances to better indicate which aspects of the traffic data were most important to the model for detection. This also helped us detect any potential spurious correlations, where features that are actually irrelevant to attack detection are being prioritized by the model. It also helped us better learn about the structure of network attacks and how they are represented in traffic data.</p>
+<section id="id78">
+<h3><strong>Brute Force</strong><a class="headerlink" href="#id78" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brute_workflow</span><span class="o">.</span><span class="n">plot_feature_importance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/19b0ef63d3a44f414d8744e1b582a90592d2b5f64934b4c0a51964b052865341.png" src="_images/19b0ef63d3a44f414d8744e1b582a90592d2b5f64934b4c0a51964b052865341.png" />
+</div>
+</div>
+<p>Backward packets were the top feature for detecting brute force attacks. A backward packet refers to the traffic sent from the target server back to the client. During a brute force attack, the attacker repeatedly attempts to log in with different credentials, triggering numerous responses from the server, such as error messages or login status updates. This increased volume of backward packets is a strong indicator of brute force activity, so it being a key feature is consistent with the nature of the attack.</p>
+</section>
+<section id="id79">
+<h3><strong>DDoS</strong><a class="headerlink" href="#id79" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddos_workflow</span><span class="o">.</span><span class="n">plot_feature_importance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/60f182f74c4a25e58a87003fd13b76d0d76a6449bd5e0729a54051e6bdb98d70.png" src="_images/60f182f74c4a25e58a87003fd13b76d0d76a6449bd5e0729a54051e6bdb98d70.png" />
+</div>
+</div>
+<p>Init_win_bytes_forward was the top feature for detecting DDoS attacks. This feature refers to the initial window size (the amount of data that can be sent over a connection before receiving an acknowledgment from the receiver) from the client to the server. During a DDoS attack, a large number of malicious requests are sent to overwhelm the target system, often involving high-volume traffic that can lead to abnormal window size patterns in the network flows.</p>
+</section>
+<section id="id80">
+<h3><strong>DoS</strong><a class="headerlink" href="#id80" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dos_workflow</span><span class="o">.</span><span class="n">plot_feature_importance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ee74f537d01927f9bf7e9a9c14d24812e1d01eabcb5b1a8940fef0051b924cd1.png" src="_images/ee74f537d01927f9bf7e9a9c14d24812e1d01eabcb5b1a8940fef0051b924cd1.png" />
+</div>
+</div>
+<p>Destination port was the top feature for detecting DoS attacks. During a DoS attack, the attacker typically floods the target with a high volume of requests aimed at a specific service, causing the destination port to experience an unusual spike in traffic. This concentrated targeting of a particular port makes the destination port a strong feature for detecting DoS attacks, as it can easily distinguish attack traffic from normal network activity that is distributed across multiple services.</p>
+</section>
+</section>
+<section id="overall-model-performance">
+<h2><strong>Overall Model Performance</strong><a class="headerlink" href="#overall-model-performance" title="Link to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics_melted</span><span class="p">[</span><span class="s1">&#39;Metric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">metrics_melted</span><span class="p">[</span><span class="n">metrics_melted</span><span class="p">[</span><span class="s1">&#39;Metric&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">metric</span><span class="p">],</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;attack_type&#39;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;model_type&#39;</span><span class="p">,</span>
+        <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparison of </span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> Across Models and Attack Types&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Attack Type&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">metric</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Model Type&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/zz/1dtb5n794qbf5bn8fxwmn2zw0000gn/T/ipykernel_50983/1070574859.py:3: FutureWarning: 
+
+The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
+
+  sns.barplot(
+/var/folders/zz/1dtb5n794qbf5bn8fxwmn2zw0000gn/T/ipykernel_50983/1070574859.py:3: FutureWarning: 
+
+The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
+
+  sns.barplot(
+/var/folders/zz/1dtb5n794qbf5bn8fxwmn2zw0000gn/T/ipykernel_50983/1070574859.py:3: FutureWarning: 
+
+The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
+
+  sns.barplot(
+</pre></div>
+</div>
+<img alt="_images/974e600948a75981b7d645eec7471cfe1e391d529abcf622e4beef0aded0f546.png" src="_images/974e600948a75981b7d645eec7471cfe1e391d529abcf622e4beef0aded0f546.png" />
+<img alt="_images/d10a07425e9ad9886ed9c300ccdf74689f5b5cd7279416211fa171fd3f08efdc.png" src="_images/d10a07425e9ad9886ed9c300ccdf74689f5b5cd7279416211fa171fd3f08efdc.png" />
+<img alt="_images/a68dfcb267edc47b815b9d15e603f1a0d1d4115c68854224e884c6038ba78ad7.png" src="_images/a68dfcb267edc47b815b9d15e603f1a0d1d4115c68854224e884c6038ba78ad7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The overall best model is: </span><span class="si">{</span><span class="n">best_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The average F1-score of this model is: </span><span class="si">{</span><span class="n">best_f1_score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Average F1-scores of all models:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">avg_f1_scores</span><span class="p">)</span>
+<span class="n">metrics_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The overall best model is: Random Forest
+The average F1-score of this model is: 0.9999
+
+Average F1-scores of all models:
+model_type
+Logistic Regression    0.996879
+Naive Bayes            0.853477
+Random Forest          0.999890
+Name: f1-score, dtype: float64
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1-score</th>
+      <th>attack_type</th>
+      <th>model_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.991651</td>
+      <td>0.991888</td>
+      <td>0.990658</td>
+      <td>Brute Force</td>
+      <td>Logistic Regression</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999857</td>
+      <td>0.999856</td>
+      <td>0.999856</td>
+      <td>Brute Force</td>
+      <td>Logistic Regression</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.998871</td>
+      <td>0.998870</td>
+      <td>0.998870</td>
+      <td>DDoS</td>
+      <td>Logistic Regression</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>DDoS</td>
+      <td>Logistic Regression</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.991898</td>
+      <td>0.991900</td>
+      <td>0.991898</td>
+      <td>DoS</td>
+      <td>Logistic Regression</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>0.999995</td>
+      <td>DoS</td>
+      <td>Logistic Regression</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999944</td>
+      <td>0.999944</td>
+      <td>0.999944</td>
+      <td>Brute Force</td>
+      <td>Random Forest</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999952</td>
+      <td>0.999952</td>
+      <td>0.999952</td>
+      <td>Brute Force</td>
+      <td>Random Forest</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999911</td>
+      <td>0.999911</td>
+      <td>0.999911</td>
+      <td>DDoS</td>
+      <td>Random Forest</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>DDoS</td>
+      <td>Random Forest</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>0.999530</td>
+      <td>DoS</td>
+      <td>Random Forest</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>DoS</td>
+      <td>Random Forest</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.937744</td>
+      <td>0.968372</td>
+      <td>0.952812</td>
+      <td>Brute Force</td>
+      <td>Naive Bayes</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.862218</td>
+      <td>0.518906</td>
+      <td>0.527000</td>
+      <td>Brute Force</td>
+      <td>Naive Bayes</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.855617</td>
+      <td>0.808365</td>
+      <td>0.794866</td>
+      <td>DDoS</td>
+      <td>Naive Bayes</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.999976</td>
+      <td>0.999976</td>
+      <td>0.999976</td>
+      <td>DDoS</td>
+      <td>Naive Bayes</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.853890</td>
+      <td>0.852176</td>
+      <td>0.848031</td>
+      <td>DoS</td>
+      <td>Naive Bayes</td>
+    </tr>
+    <tr>
+      <th>Weighted avg</th>
+      <td>0.998179</td>
+      <td>0.998174</td>
+      <td>0.998174</td>
+      <td>DoS</td>
+      <td>Naive Bayes</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h1><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<p>The overall results of this project highlight key findings regarding the performance of different machine learning models in detecting network attacks. We evaluated model performance using F1 scores, a commonly used metric for assessing the balance between precision and recall in classification tasks. Our analysis revealed that, while all models exhibited similar success in detecting brute force attacks, the performance for DDoS and DoS attacks varied significantly across model types. This discrepancy is likely due to the uneven distribution of data for each attack type in the datasets, which were not consistently balanced. Specifically, brute force attack flows had substantially higher traffic volume compared to DDoS and DoS attacks, which likely contributed to the more stable performance of the models on this particular attack type. In contrast, for attack types with less abundant training data, model performance was more variable.</p>
+<p>Through averaging the F1 scores, we identified logistic regression as the most effective model for detecting all three attack types, achieving an average F1 score of 0.62. The relatively superior performance of logistic regression may be attributed to its suitability for smaller datasets and its strength in binary classification tasks, such as distinguishing between benign and malicious traffic. However, it is important to consider several limitations within our project design and dataset that may influence the interpretation of these results.</p>
+<p>First, there were notable inconsistencies in the availability of training data from 2017 and test data from 2018. The DoS attack class, for example, exhibited an imbalance between benign and attack packets, which could have led to biased predictions, with the model potentially favoring benign traffic. When datasets are imbalanced, models tend to perform better on the majority class, which may have contributed to the underperformance in detecting DoS attacks.</p>
+<p>Another limitation lies in the generation of the packet capture data. Due to privacy constraints, the researchers could not use real network traffic and instead simulated both benign and attack traffic over a one-week period. This simulated traffic may not accurately reflect real-world network behavior, which could affect the generalizability of our results.</p>
+<p>Finally, our own project design may have been overly complex, as we attempted to study multiple attack types simultaneously. To better understand how machine learning models respond to attacks that evolve over time, a larger and more diverse dataset spanning several years would be necessary. In the original design for this study, the goal was to incorporate the <strong>CCIDOS2019</strong> dataset as well, to evaluate the performance of these models over three years; however, there was not sufficient data for all three attack types present in all three datasets. This points to a larger issue with our source of data: the attack types and the volume of data available for each attack have not been consistently maintained across years, making it difficult to normalize and compare multiple datasets from the same source. In hindsight, focusing on a single attack type, such as DDoS, could have simplified the analysis and yielded more precise insights into model performance over time.</p>
+<p>If we were to expand the study’s evaluation metrics, we would also have included an analysis of processing time and cost for the different machine learning models, including CPU, GPU, and memory usage. This would have been highly relevant to network administrators and cybersecurity companies, who often face the challenge that the best-performing model is not necessarily the one with the highest accuracy, but the one that is also cost-effective and efficient to deploy in a real-world setting.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Final Project" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kanchan Naik, Spencer Dearman.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
