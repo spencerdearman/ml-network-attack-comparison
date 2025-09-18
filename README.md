@@ -1,4 +1,4 @@
-# Machine Learning Video Quality Inference on Network Traffic
+# Detecting Brute Force, DDoS, and DoS Attacks: A Supervised Learning Comparison
 
 ### Sphinx Documentation
 1. `cd sphinx`
